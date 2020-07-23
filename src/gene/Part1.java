@@ -1,43 +1,31 @@
 package gene;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 public class Part1 {
 
 	static String findSimpleGene(String dna) {
-		String gene = "";
 		int startIndex = dna.indexOf("ATG");
+//		System.out.println("startIndex " + startIndex);
 		if (startIndex == -1) {
-			return "";
+			return "noStart";
 		}
 		int stopIndex = dna.indexOf("TAA", startIndex + 3); // find after start codon
+//		System.out.println("stopIndex " + stopIndex);
 		if (stopIndex == -1) {
-			return "";
+			return "noStop";
 		}
-		gene = dna.substring(startIndex, stopIndex + 3);
+		String gene = dna.substring(startIndex, stopIndex + 3);
+//		System.out.println("geneLength " + gene.length());
+//		System.out.println(gene);
 		if (gene.length() % 3 == 0) {
+//			System.out.println(gene);
 			return gene;
 		}
-		return "no valid dna strands";
+		return "";
 	}
 
 	public static void main(String[] args) {
-		// File f = new File("C:\\Dev\\workSpace\\BlueJ\\dna\\mansmall.fa");
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader("C:\\Dev\\workSpace\\BlueJ\\dna\\mansmall.fa"));
-			String line = reader.readLine();
-			while (line != null) {
-				System.out.println(line);
-				// read next line
-				line = reader.readLine();
-				findSimpleGene(line);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		FileResource fr = new FileResource("brca1.fa");
+//		String dnaSample = fr.asString();
+		System.out.println(findSimpleGene("AAATGCCCTAACTAGATTAAGAAACC"));
 	}
 }
